@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	
 	<groupId>com.mt</groupId>
-	<artifactId>maven-web-application</artifactId>
+	<artifactId>maven-web-application123</artifactId>
 	<version>0.0.3-SNAPSHOT</version>
 	<packaging>war</packaging>
 	
-	<name>maven-web-application</name>
+	<name>maven-web-application123</name>
 
 	<description>Maven Web Project for Java Programming Language</description>
 
@@ -111,7 +111,7 @@
 	</distributionManagement>
 	
 	<build>
-		<finalName>maven-web-application</finalName>
+		<finalName>maven-web-application1234</finalName>
 		
 		<plugins>
 			<plugin>
