@@ -33,7 +33,7 @@ node
   finally
   {
     notifyBuild(currentBuild.result)
-    sh "echo "*****************"currentBuild.result"*****************""
+     print "*****************"currentBuild.result"*****************"
   }
 }
 
