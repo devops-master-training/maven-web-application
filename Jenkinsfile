@@ -2,7 +2,7 @@ node
 {
   def mavenHome = tool name: "maven3.8.6"
   try{
-    buildnotify('STARTED')
+    notifyBuild('STARTED')
     stage('checkOutCode')
     {
         git branch: 'development', credentialsId: '6ce0c4fd-6891-45dd-b5e4-3fde64c07777', url: 'https://github.com/devops-master-training/maven-web-application.git'
