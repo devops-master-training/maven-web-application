@@ -33,6 +33,7 @@ node
   finally
   {
     notifyBuild(currentBuild.result)
+    print currentBuild
   }
 }
 
