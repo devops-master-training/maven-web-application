@@ -1,7 +1,7 @@
 node
 {
+  def mavenHome = tool name: "maven3.8.6"
   try{
-    def mavenHome = tool name: "maven3.8.6"
     stage('checkOutCode')
     {
         git branch: 'development', credentialsId: '6ce0c4fd-6891-45dd-b5e4-3fde64c07777', url: 'https://github.com/devops-master-training/maven-web-application.git'
@@ -23,12 +23,14 @@ node
       deploy adapters: [tomcat9(credentialsId: '1a28d925-859f-4e4a-be67-6bc0988f8b47', path: '', url: 'http://35.154.179.94:8080/')], contextPath: null, war: '**/maven-web-application12.war'
     }
   }
-  cache(e)
+  
+  catch(e)
   {
   currentBuild.result="FAILED"
   throw e
   }
-  finally{
+  finally
+  {
     notifyBuild(currentBuild.result)
   }
 }
