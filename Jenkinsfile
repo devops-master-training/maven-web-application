@@ -27,7 +27,7 @@ node
   
   catch(e)
   {
-  currentBuild.result="FAILED"
+  currentBuild.result="FAILURE"
   throw e
   }
   finally
@@ -48,7 +48,7 @@ node
     } else if (buildStatus == 'SUCCESS') {
         color = '#BDFFC3'
     } else {
-        color = '#FF9FA1'
+        color = 'RED'
     }
      slackSend(color: color, message: msg)
   }
