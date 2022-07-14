@@ -34,7 +34,8 @@ node
     notifyBuild(currentBuild.result)
   }
 }
-  def notifyBuild(string buildStatus)
+
+  def notifyBuild(String buildStatus)
   {
   buildStatus=buildStatus?:"SUCCESS"
   def subject="${buildStatus}: JOB ${env.JOB_NAME} #${env.BUILD_NUMBER}"
