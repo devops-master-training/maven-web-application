@@ -73,7 +73,7 @@ def notifyBuild(String buildStatus)
         color = '#FFFF00'
     }else if (buildStatus == 'STARTEDBUILD') {
         color = 'FFA500'
-        mesg="BUILD SUCCESSS"
+        mesg="BUILD SUCCESSS...."
         slackSend(color: color, message: mesg)
     }
     else if (buildStatus == 'SUCCESS') {
