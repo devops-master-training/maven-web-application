@@ -21,7 +21,7 @@ node('node1')
     }
     stage('deployToTomcat')
     {
-      deploy adapters: [tomcat9(credentialsId: '1a28d925-859f-4e4a-be67-6bc0988f8b4', path: '', url: 'http://35.154.179.94:8080/')], contextPath: null, war: '**/maven-web-application12.war'
+      deploy adapters: [tomcat9(credentialsId: '1a28d925-859f-4e4a-be67-6bc0988f8b4', path: '', url: 'http://65.0.31.91:8080/')], contextPath: null, war: '**/maven-web-application12.war'
     }
   }
   
