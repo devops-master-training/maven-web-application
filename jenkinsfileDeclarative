@@ -1,0 +1,74 @@
+pipeline
+{
+    agent any
+    tools { 
+        maven 'maven3.8.6' 
+    }
+    stages {
+        
+        stage('codeCheckout')
+        {
+            steps{
+                notifyBuild('STARTED')
+                git branch: 'development', credentialsId: '6ce0c4fd-6891-45dd-b5e4-3fde64c07777', url: 'https://github.com/devops-master-training/maven-web-application.git'
+            }
+        }
+        stage('build')
+        {
+            steps{
+                notifyBuild('STARTEDBUILD')
+                sh "mvn clean package"
+            }
+        }
+        stage('ExecuteTestReport')
+        {
+            steps
+            {
+                jacoco buildOverBuild: true, changeBuildStatus: true, deltaBranchCoverage: '80', maximumBranchCoverage: '80', minimumBranchCoverage: '80', runAlways: true
+            }
+        }
+        stage("uploadartifactsToNexus")
+        {
+            steps{
+                sh "mvn deploy"
+            }
+        }
+        stage("deployAppToServer")
+        {
+            steps{
+                deploy adapters: [tomcat9(credentialsId: '1a28d925-859f-4e4a-be67-6bc0988f8b47', path: '', url: 'http://65.0.31.91:8080/')], contextPath: null, war: '**/maven-web-application12.war'
+            }
+        }
+    }
+    post {
+  success {
+    // One or more steps need to be included within each condition's block.
+    notifyBuild(currentBuild.result)
+  }
+  failure {
+    // One or more steps need to be included within each condition's block.
+    notifyBuild(currentBuild.result)
+  }
+}
+}
+def notifyBuild(String buildStatus)
+  {
+  buildStatus=buildStatus?:"SUCCESS"
+  def subject="${buildStatus}: JOB ${env.JOB_NAME} #${env.BUILD_NUMBER}"
+    def msg="${subject}:\n${BUILD_URL}"
+    def color
+
+    if (buildStatus == 'STARTED') {
+        color = '#FFFF00'
+    }else if (buildStatus == 'STARTEDBUILD') {
+        color = 'FFA500'
+        mesg="BUILD SUCCESSS"
+        slackSend(color: color, message: mesg)
+    }
+    else if (buildStatus == 'SUCCESS') {
+        color = '#00FF00'
+    } else {
+        color = '#ff0000'
+    }
+     slackSend(color: color, message: msg)
+  }
